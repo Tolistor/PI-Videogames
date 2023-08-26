@@ -5,6 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+
+  background-image: url(https://wallpapers.com/images/high/action-games-1920-x-1080-wallpaper-em1gvdroqkkyzptx.webp);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-attachment: fixed;
+   background-size: cover;
 }
 
 code {

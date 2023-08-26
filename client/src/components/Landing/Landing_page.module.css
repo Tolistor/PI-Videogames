@@ -1,0 +1,41 @@
+
+
+.landingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    /* (https://cdn.agendasonidocaracol.mx/Upload/ebda39df189dad184d4918af3818154777cf0f9c.jpg) */
+    /* https://wallpapercave.com/wp/wp2757880.gif */
+    /* https://wallpapers.com/images/high/action-games-1920-x-1080-wallpaper-em1gvdroqkkyzptx.webp */
+    /* https://cdn.agendasonidocaracol.mx/Upload/ebda39df189dad184d4918af3818154777cf0f9c.jpg */
+    background-image: url(https://cdn.agendasonidocaracol.mx/Upload/ebda39df189dad184d4918af3818154777cf0f9c.jpg );
+   background-repeat: no-repeat;
+   background-position: center;
+   background-attachment: fixed;
+   background-size: cover;
+}
+
+.heading {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}

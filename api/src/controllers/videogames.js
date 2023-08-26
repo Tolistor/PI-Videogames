@@ -28,6 +28,15 @@ videogameRouter.get('/videogames', async (req, res) => {
                 db = await videogames.findAll({
                     //? nombre exacto
                     where: { name: name },
+                    include: [
+                        {
+                            model: Genre,
+                            attributes: ["id",'name'],
+                            through: {
+                                attributes: [],
+                            },
+                        },
+                    ],
                     //? que lo contenga
                     // where: {
                     //     name: { [Op.iLike]: `%${name}%` },
@@ -50,10 +59,20 @@ videogameRouter.get('/videogames', async (req, res) => {
             // return res.send(api)
         }
         else {
-            const response = await axios.get(`${URL}?key=${key}&page_size=100`);
-            const all = response.data.results;
+            try {
+                const response = await axios.get(`${URL}?key=${key}&page_size=100`);
+            const allApi = response.data.results;
 
-            return res.send(all);
+            const dbVideojuegos = await videogames.findAll()
+
+            const todos = [...allApi, ...dbVideojuegos]
+
+            return res.send(todos);
+
+            } catch (error) {
+                console.error('Error al octeer datos', error)
+                return res.status(500).json({message: 'Error al octener datos'})
+            }            
         }
         
     } catch (error) {
@@ -66,18 +85,18 @@ videogameRouter.get('/videogames/:idVideogame', async (req, res) => {
     const {idVideogame} = req.params
     try {
         if (idVideogame.length > 9) {
-            let game = await game.findByPk(idVideogame,{
+            let game = await videogames.findByPk(idVideogame,{
                 include: [
                     {
                         model: Genre,
-                        attributes: ['name'],
+                        attributes: ["id",'name'],
                         through: {
                             attributes: [],
                         },
                     },
                 ],
             })
-            res.send(game)
+            res.status(200).send(game)
         }
         else {
             let response = await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${key}`)
@@ -95,7 +114,7 @@ videogameRouter.get('/videogames/:idVideogame', async (req, res) => {
 //?--------------------------POST-------------------------------
 
 videogameRouter.post('/videogames', async (req, res) => {
-    const { name, descripcion, imagen, genres } = req.body
+    const { name, descripcion, imagen, genres ,plataformas, fecha_lanzamiento ,rating} = req.body
 
     try {
         // Crear el videojuego en la base de datos
@@ -104,6 +123,9 @@ videogameRouter.post('/videogames', async (req, res) => {
             name: name,
             descripcion: descripcion,
             imagen: imagen,
+            plataformas: plataformas,
+            fecha_lanzamiento: fecha_lanzamiento,
+            rating: rating
         });
         
         // console.log(Object.keys(newGame))
