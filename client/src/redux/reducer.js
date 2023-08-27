@@ -7,7 +7,7 @@ const initialState = {
     order: null,
     
 }
-//!quede aca no hace nada aun este codigo
+
 
 const reducer = (state = initialState, action) => {
     console.log("soy el estado en reducer",state.selectedGenre);
@@ -87,4 +87,3 @@ const reducer = (state = initialState, action) => {
 
 export default reducer
 
-// selectedGenre: action.payload.videojegos.filter((game) => game.genres.some(genre => genre.name === action.payload.genre)),
