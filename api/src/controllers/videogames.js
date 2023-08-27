@@ -15,6 +15,11 @@ const URL = 'https://api.rawg.io/api/games';
 //? ruta los trae a todos o los 15 primeros pro "nombre"
 videogameRouter.get('/videogames', async (req, res) => {
     const name = req.query.name
+
+    let paginaUno = [];
+    let paginaDos = [];
+    let paginaTres = [];
+
     try {
         if(name) {
             
@@ -60,8 +65,24 @@ videogameRouter.get('/videogames', async (req, res) => {
         }
         else {
             try {
-                const response = await axios.get(`${URL}?key=${key}&page_size=100`);
-            const allApi = response.data.results;
+                const response = await axios.get(`${URL}?key=${key}&page_size=40`);
+            
+
+            let uri = response.data.next
+            paginaUno = [...response.data.results]
+            //*primeros 40 videojuegos
+
+            paginaDos = await axios.get(uri)
+            //* de 40-80 videojuegos
+            uri = paginaDos.data.next
+            
+            paginaDos = [...paginaDos.data.results]
+
+            paginaTres = await axios.get(uri)
+            //* de 80-120 videojuegos
+            paginaTres = [...paginaTres.data.results]
+
+            const allApi = [...paginaUno, ...paginaDos, ...paginaTres]
 
             const dbVideojuegos = await videogames.findAll()
 

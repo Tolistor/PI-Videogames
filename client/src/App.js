@@ -12,10 +12,7 @@ import Form from './components/Form/Form';
 
 function App() {
 
-  const [ videojegos, setVideojuegos ]= useState(["viejo"])
-  const [ todos, setTodos ]= useState([])
-
-  
+  const [ videojegos, setVideojuegos ]= useState(["viejo"]) 
 
   const onSearch = async(nombre)=> {
     try {
@@ -23,16 +20,9 @@ function App() {
       const response = await axios.get(`http://localhost:3001/videogames/?name=${nombre}`)
       const {data} = response
       // console.log("soy primer log",data);
-
-      // const videogameFind = videojegos.find((game) => game.name === nombre)
-      // console.log("soy videogameFind ", videogameFind);
-
-      // if(videogameFind) {
-      //   alert('Ya esta en la lista')
-      // }      
+          
       
-      if(data[0].name) {
-        // setVideojuegos([])
+      if(data[0].name) {       
         setVideojuegos( data );
       }
       // console.log("soy el estado",videojegos);      
@@ -47,33 +37,16 @@ function App() {
     //* trae todos lo videogames
     async function todoVideojuegos(videojuego) {
       try {
-        const response = await axios.get(`https://api.rawg.io/api/games?key=7ed5bb1bead94f56b47fb935193231bb&page_size=100`);
-        const data = response.data.results
-        // console.log(`data= ${data}`);
-        // const generos= []
-        // console.log(`data0 = ${data[0].genres.forEach(element => {
-        //   generos.push(element.name)
-        // })}`);
-        // console.log(`data= ${objeto.data}`);
-        // const gen = data.forEach(element => {
-        //   element.genres.forEach(element =>{
-        //     generos.push(element.name)
-        //   })
-        // });
-        // const allGenres = [...new Set(generos) ]
-        // console.log("soy gen",allGenres);
         
-        //! quedamos aca 
-        //! asi com esta agrega los generos al array pero repite si estan repetidos
+        const response = await axios.get(`http://localhost:3001/videogames`);
+        const data = response.data         
+        
+        //seteamos todos los videojuegos
         setVideojuegos(data);
-        // if (data[0].name) {
-        //   setVideojuegos(data);
-        //   console.log("soy todos", videojegos);
-        // } else {
-        //   window.alert("¡No hay videojuego con este nombre!");
-        // }
+        
       } catch (error) {
-        console.error(error);
+        throw new Error(error.message);
+        // console.error(error);
       }
     }
   
@@ -86,7 +59,7 @@ function App() {
     <div >
       <Routes>
         <Route path='/' element= {<LandingPage/>} index={true}/>
-        <Route path='/Home' element= {<Home onSearch={onSearch} todos={todos} videojegos={videojegos} setVideojuegos={setVideojuegos}/>}/>
+        <Route path='/Home' element= {<Home onSearch={onSearch}  videojegos={videojegos} setVideojuegos={setVideojuegos}/>}/>
         <Route path="/detail/:id" element={<Detail />} />
         <Route path='/form' element= {<Form />}/>
       </Routes>

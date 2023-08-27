@@ -23,24 +23,11 @@ const Nav = ({ onSearch }) => {
                     <button className={style.destacarBoton}>
                         <Link to="/form" className={style.link}>Crear videojuego</Link>
                     </button>
-
-                    {/* <button className={style.boton}>
-                        <Link to="/buscarVideogame" className={style.link}>buscarVideogame</Link>
-                    </button> */}
-
-
-                    {/* <button className={style.boton}>
-                        <Link to="/buscar_videojuego" className={style.link}>Buscar perros</Link>
-                    </button> */}
+                    
                 </div>
 
                 <div className={style.busqueda}>
-
-                    <SearchBar onSearch={onSearch} />
-
-                    {/* {location.pathname === "/buscar_videojuego" ? (
-                        <SearchBar onSearch={onSearch} />
-                    ) : null} */}
+                    <SearchBar onSearch={onSearch} />                    
                 </div>
             </div>
 

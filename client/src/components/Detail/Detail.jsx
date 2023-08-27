@@ -1,5 +1,6 @@
 import style from './Detail.module.css'
 import axios from "axios";
+        //hook acedea los parametros de la navegacion
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
@@ -14,22 +15,15 @@ const Detail = () => {
         axios.get(`http://localhost:3001/videogames/${id}`).then(({ data }) => {
 
             setVideogame({ ...data });
-
-        })
-        // return setVideogame({})
+        })        
     }, [id])
 
-    // useEffect(() => {
-    //     if (videogame.genres.length > 0) {
-    //         const genresString = videogame.genres.map((genre) => genre.name).join(', ');
-    //         setAllGenres(genresString);
-    //     }
-    // }, [videogame.genres]);
+    
     const allPlatforms = videogame.platforms?.map((platform) => platform.platform.name).join(', ');
     const allGenres = videogame.genres?.map(genre => genre.name).join(", ");
     const imagen = videogame?.background_image ? videogame?.background_image : videogame.imagen
     return (
-        // console.log("soy el estad en Detail", videogame.genres),
+        
         <div className={style.detailContainer}>
             <Link to='/home'>
                 <button className={style.detailButton}>Volver</button>

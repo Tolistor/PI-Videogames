@@ -29,22 +29,6 @@ const Form = () => {
         genres: [],
         plataformas: "",
     })
-
-    //!estan en "onInputChange" mas abajo
-    // function handleInputChange (evento) {
-    //     // e.preventDefault();
-    //     setData({
-    //         ...data,
-    //         [evento.target.name]: evento.target.value,
-    //     });
-    //     setErrors(validations(
-    //         {...data, 
-    //         [evento.target.name] : evento.target.value
-    //     }))
-    // }
-    
-
-
     //*------------------------------------------------
 
     const [videogame, setVideogame] = useState({
@@ -77,8 +61,7 @@ const Form = () => {
         e.preventDefault();
     
         //*manejamos generos antes de enviar la info
-        const genresArray = videogame.genres.split(',').map(genre => genre.trim());
-    
+        const genresArray = videogame.genres.split(',').map(genre => genre.trim());    
         const updatedVideogame = { ...videogame, genres: genresArray };
 
         axios
@@ -87,7 +70,8 @@ const Form = () => {
                 navigate("/Home");
             })
             .catch((err) => {
-            console.log(err);
+                throw new Error("Hubo un problema al guardar el videojuego");
+            // console.log(err);
             });
     }
 
@@ -207,11 +191,11 @@ const Form = () => {
                         <label>Generos:</label>
                         <br />
                         <textarea
-                            // className={vStyles.input}
+                            
                             onChange={onInputChange}
                             name="genres"
                             value={videogame.genres} // Convertimos el arreglo en una cadena separada por comas
-                            rows={3} // Establecemos el número de filas
+                            rows={3} // Establecemos el numero de filas
                             required
                         />
                         <br/>
@@ -221,19 +205,7 @@ const Form = () => {
                             ) :
                             ''
                         }
-                    </div>
-                    {/* <div>
-                        <label>Generos:</label>
-                        <br />
-
-                        <input
-                            // className={vStyles.input}
-                            onChange={onInputChange}
-                            name="genres"
-                            type="text"
-                            value={videogame.genres}
-                        />
-                    </div> */}
+                    </div>                    
 
                     <div className={style.formfield}>
                         <label>Plataformas:</label>
@@ -261,10 +233,7 @@ const Form = () => {
                     <div className={style.contenedorBoton}>
                         <button type="submit" className={style.submitbutton}>Crear Videojuego</button>
                     </div>
-                    {/* <input
-                        // className={`${vStyles.input} ${vStyles.padder}`}
-                        type="submit"
-                    /> */}
+                    
 
                 </div>
             </form>
