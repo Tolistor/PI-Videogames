@@ -84,7 +84,23 @@ videogameRouter.get('/videogames', async (req, res) => {
 
             const allApi = [...paginaUno, ...paginaDos, ...paginaTres]
 
-            const dbVideojuegos = await videogames.findAll()
+            const dbVideojuegos = await videogames.findAll({
+                
+                
+                include: [
+                    {
+                        model: Genre,
+                        attributes: ["id",'name'],
+                        through: {
+                            attributes: [],
+                        },
+                    },
+                ],
+                //? que lo contenga
+                // where: {
+                //     name: { [Op.iLike]: `%${name}%` },
+                // },
+            })
 
             const todos = [...allApi, ...dbVideojuegos]
 
